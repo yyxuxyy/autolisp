@@ -74,9 +74,9 @@
 	;	;(list (+ (car ptleft) 137.0) (- (cadr ptleft) 1000.0) (caddr ptleft))
 	;	"1" "" "0"
 	;)
-	(AddBlkRef "gyl" (ptxy ptleft 137.0 -1000.0))
+	(AddBlkRef "gyl" (ptxy ptleft 137.0 (- zcdeep)))
 	(command "MIRROR" (entlast) "" mid midup "N")
-	(setq ptzc(ptxy ptleft 274.0 -863.5))
+	(setq ptzc(ptxy ptleft 274.0 (- (/ 273 2.0) zcdeep)))
 	;(setq ptzc(list (+ (car ptleft) 274.0)(- (cadr ptleft) 863.5) (caddr ptleft) ))
 	;(setq ptzc2(list (+ (car ptzc) (- jkwide 548.0)) (- (cadr ptzc) 273.0) (caddr ptzc)))
 	(setq ptzc2(ptxy ptzc (- jkwide 548.0) -273.0))
@@ -185,10 +185,13 @@
 	(command "DIMLINEAR" (ptxy ptleft (+ dist1 dist2 distm distm 340.0) 0)
 		(ptxy ptstart (+ dist2 distm 340.0) 0) "T" dispdeep "v" "@1300,3000"
 	)
+	(command "DIMLINEAR" ptleft
+		(ptxy ptleft 0 (- zcdeep)) "v" (strcat "@-1500," (rtos (/ zcdeep 2.0)))
+	)
 	(guanxian ptrad (/ gxdia 2.0))
 	(command "LAYER" "m" "µã»®Ïß" "")
-	(AddLine (ptxy ptleft 0 -1000.0) 
-		(ptxy ptleft (+ dist1 dist2 distm distm) -1000.0))
+	(AddLine (ptxy ptleft 0 (- zcdeep)) 
+		(ptxy ptleft (+ dist1 dist2 distm distm) (- zcdeep)))
 	(resetvar0)
 	(txtline txte1)
 	distList
