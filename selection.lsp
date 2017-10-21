@@ -40,10 +40,6 @@
 	;(setvar "PICKFIRST" pist)
 )
 
-
-
-
-
 (defun guanxian(pt rad)
 	;(setvar0)	
 	(command "layer" "m" "中实线" "")
@@ -201,7 +197,7 @@
 	ptlist
 )
 
-(defun c:pdflay()
+(defun c:pdflay(/ ss ptlist i ssi pt fname)
 	(setq ss(ssget "x" (list (cons 0 "INSERT") (cons 2 "TK"))))
 	(setq ptlist nil i 0)
 	(repeat (sslength ss)
@@ -218,7 +214,9 @@
 	(setvar "TILEMODE" 0)
 	(repeat (length ptlist)
 		(setq pt(nth i ptlist))
-		(setq pt(list (+ 1.0 (car pt)) (+ 2.0 (cadr pt)) (caddr pt)))
+		(if (= "17.0s (LMS Tech)" (getvar "ACADVER"))
+			(setq pt(list (+ 1.0 (car pt)) (+ 2.0 (cadr pt)) (caddr pt)))
+		)
 		(setq fname(strcat (getvar "DWGPREFIX") (vl-string-trim ".dwg" (getvar "DWGNAME")) "-" (itoa (1+ i)) ".pdf"))
 		(command "-plot" "y" "" "DWG To PDF.pc3" "ISO A3 (420.00 x 297.00 毫米)" "M" "L" "N" "W" 
 			pt (list (+ (car pt) 420.0) (+ (cadr pt) 297.0) (caddr pt))
@@ -231,7 +229,7 @@
 	)
 	(resetvar0)
 )
-(defun c:pdfmodel()
+(defun c:pdfmodel(/ ss ptlist ssi elist i pt fname )
 	(setq ss(ssget "x" (list (cons 0 "INSERT") (cons 2 "TK"))))
 	(setq ptlist nil i 0)
 	(repeat (sslength ss)
