@@ -281,3 +281,6 @@
 	(AddPLpts (list p1 p2 p3 p4) 1.0)
 	(AddPL2pt pt (polar pt ang1 mgchang) 0.15)	
 )
+(defun c:llls()
+	(princ)
+)
