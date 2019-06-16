@@ -1,19 +1,19 @@
 (defun C:trans2d ()
-    (setq AcadObject (vlax-get-acad-object))
-    (setq AcadDocument (vla-get-ActiveDocument Acadobject))
-    (setq mSpace (vla-get-ModelSpace Acaddocument))
+	(setq AcadObject (vlax-get-acad-object))
+	(setq AcadDocument (vla-get-ActiveDocument Acadobject))
+	(setq mSpace (vla-get-ModelSpace Acaddocument))
   
-    (Prompt "\n选择要转换的三维多段线: ")
-    (setq ss (ssget '((0 . "POLYLINE")))
-          i  0
-    )
-    (while (setq ee (ssname ss i))
-      (setq obj (vlax-ename->vla-object ee))
-      (setq pts (vlax-variant-value (vla-get-coordinates obj)))
-      (vla-AddPolyline mSpace pts)
-      (setq i (1+ i))
-    )
-    (princ)
+	(Prompt "\n选择要转换的三维多段线: ")
+	(setq ss (ssget '((0 . "POLYLINE")))
+		i  0
+	)
+	(while (setq ee (ssname ss i))
+		(setq obj (vlax-ename->vla-object ee))
+		(setq pts (vlax-variant-value (vla-get-coordinates obj)))
+		(vla-AddPolyline mSpace pts)
+		(setq i (1+ i))
+	)
+	(princ)
 )
 (defun ukword(bit kwd msg def / inp)
 	(if (and def (/= def " "))
@@ -68,13 +68,17 @@
 	(foreach pt alist
 		(princ(strcat
 						(strcat "X=" (rtos (car pt) 2 4))
-						(strcat "Y=" (rtos (cadr pt) 2 4))
+						(strcat "Y=" (rtos (cadr pt) 2 4)) "\n"
 						;(strcat "Z=" (rtos (caddr pt) 2 4))
-						"\n"
-					))
+						
+					)
+			
+			
+		)
+		
+		;(setvar "DIMZIN" dimzin1)
+		;alist
 	)
-	;(setvar "DIMZIN" dimzin1)
-	;alist
 )
 ;
 ; -- Function MeGetInters
